@@ -1,15 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ current_lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ titulo }}</title>
+    <title>{{ t('page_title') }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="card">
-        <h1>{{ saludo }}</h1>
-        <p>Esta página combina python, flask, jinja2, html, css y docker</p>
-    </div>
+    <header class="main-header">
+        
+        <!-- Logo principal -->
+        <div class="logo">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/main_icon.png') }}" alt="D&D Logo">
+            </a>
+        </div>
+
+        <!-- Selector de Edición / RuleSet -->
+        <div class="ruleset-selector">
+            <select>
+                <option value="2024">D&D 2024 / 5ª Ed.</option>
+                <option value="5e">D&D 5ª Edición Clásica</option>
+            </select>
+        </div>
+
+        <!-- Menú de Navegación Principal con Desplegables -->
+        <nav class="main-nav">
+            <ul>
+                <!-- Personajes -->
+                <li class="dropdown">
+                    <a href="#">{{ t('nav_characters') }} ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">{{ t('sub_my_characters') }}</a></li>
+                        <li><a href="#">{{ t('sub_create_character') }}</a></li>
+                        <li><a href="#">{{ t('sub_pregenerated') }}</a></li>
+                    </ul>
+                </li>
+
+                <!-- Jugador -->
+                <li class="dropdown">
+                    <a href="#">{{ t('nav_player') }} ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">{{ t('sub_classes') }}</a></li>
+                        <li><a href="#">{{ t('sub_species') }}</a></li>
+                        <li><a href="#">{{ t('sub_backgrounds') }}</a></li>
+                        <li><a href="#">{{ t('sub_feats') }}</a></li>
+                        <li><a href="#">{{ t('sub_equipment') }}</a></li>
+                        <li><a href="#">{{ t('sub_spells') }}</a></li>
+                    </ul>
+                </li>
+
+                <!-- Reglas -->
+                <li class="dropdown">
+                    <a href="#">{{ t('nav_rules') }} ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">{{ t('sub_combat') }}</a></li>
+                        <li><a href="#">{{ t('sub_conditions') }}</a></li>
+                        <li><a href="#">{{ t('sub_rests') }}</a></li>
+                        <li><a href="#">{{ t('sub_travel') }}</a></li>
+                    </ul>
+                </li>
+
+                <!-- Monstruos -->
+                <li class="dropdown">
+                    <a href="#">{{ t('nav_monsters') }} ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">{{ t('sub_bestiary') }}</a></li>
+                        <li><a href="#">{{ t('sub_homebrew_monsters') }}</a></li>
+                        <li><a href="#">{{ t('sub_random_creature') }}</a></li>
+                    </ul>
+                </li>
+
+                <!-- Mundo -->
+                <li class="dropdown">
+                    <a href="#">{{ t('nav_world') }} ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">{{ t('sub_regions') }}</a></li>
+                        <li><a href="#">{{ t('sub_realms') }}</a></li>
+                        <li><a href="#">{{ t('sub_economy') }}</a></li>
+                    </ul>
+                </li>
+
+                <!-- Campañas -->
+                <li class="dropdown">
+                    <a href="#">{{ t('nav_campaigns') }} ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">{{ t('sub_active_campaigns') }}</a></li>
+                        <li><a href="#">{{ t('sub_create_campaign') }}</a></li>
+                        <li><a href="#">{{ t('sub_adventure_diaries') }}</a></li>
+                        <li><a href="#">{{ t('sub_last_session') }}</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Buscador -->
+        <div class="search-bar">
+            <input type="text" placeholder="{{ t('search_placeholder') }}">
+        </div>
+
+        <!-- Selector de Idioma -->
+        <div class="language-selector">
+            <select onchange="window.location.href=this.value">
+                <option value="{{ url_for('change_language', lang_code='es') }}" {% if current_lang == 'es' %}selected{% endif %}>🇪🇸 Español</option>
+                <option value="{{ url_for('change_language', lang_code='en') }}" {% if current_lang == 'en' %}selected{% endif %}>🇬🇧 English</option>
+            </select>
+        </div>
+
+        <!-- Perfil / Cuenta -->
+        <div class="user-profile">
+            <a href="#">{{ t('user_account') }}</a>
+        </div>
+
+    </header>
+
+    <!-- Área Central -->
+    <main class="main-content">
+        <section>
+            {{ content }}
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/main_icon.png') }}" alt="D&D Logo Footer">
+        </div>
+    </footer>
 </body>
 </html>
